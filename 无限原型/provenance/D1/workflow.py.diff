@@ -1,0 +1,32 @@
+--- frozen/workflow.py
++++ Share/variants/D1/workflow.py
+@@ -32,7 +32,7 @@
+         pred=dict(binding=bind,selected_sha256=selected_sha,domain=domain,indices=ids,
+             predictions=logits.argmax(1).cpu(),logits=logits.cpu(),geometry=geometry(model,features),truth_access=False)
+         path=directory/f'domain_{domain:03d}_predictions.pt';save_pt(path,pred)
+-        predictions.append(dict(domain=domain,indices=ids,path=str(path),sha256=sha(path)))
++        predictions.append(dict(domain=domain,indices=ids,path=path.name,sha256=sha(path)))
+         write_json(directory/'prediction_progress.json',dict(binding=bind,predictions=predictions))
+         del x,pred,state
+     write_json(directory/'prediction_complete.json',dict(binding=bind,predictions=predictions,complete=True,selected_sha256=selected_sha))
+@@ -40,9 +40,8 @@
+ def run_fold(cache,work,fold,gpu,manifest,resume=False,attempt=1):
+     cfg=config(fold);bind=binding(fold,cache,manifest,gpu,attempt=attempt);_,_,splits=inputs(cache)
+     split=next(x for x in splits if x['fold']==fold);directory=work/'runs'/f'fold_{fold:02d}'
+-    import fcntl
+-    with (work/f'fold{fold:02d}.lock').open('a') as lock:
+-        fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
++    from common import exclusive_lock
++    with exclusive_lock(work/f'fold{fold:02d}.lock'):
+         if not resume:
+             directory.mkdir(parents=True,exist_ok=False);seed(fold)
+             save_pt(directory/'before_model_rng.pt',dict(binding=bind,rng=capture_rng()))
+@@ -63,7 +62,7 @@
+     binding_checks=regression(expected_binding)
+     out=[];seen=[]
+     for item in done['predictions']:
+-        p=Path(item['path']).resolve();assert p.parent==directory.resolve() and sha(p)==item['sha256']
++        p=(directory/item['path']).resolve();assert p.parent==directory.resolve() and sha(p)==item['sha256']
+         pred=load_pt(p);ids=item['indices'];assert ids==pred['indices'] and all(type(i)is int for i in ids)
+         require_binding(pred['binding'],expected_binding)
+         assert pred['selected_sha256']==done['selected_sha256']==sha(directory/'selected.pt')

@@ -1,0 +1,11 @@
+--- frozen/data.py
++++ Share/variants/D1/data.py
+@@ -8,7 +8,7 @@
+ from sklearn.preprocessing import LabelEncoder
+ from nets.functionals import euler_align
+ from nets.utils.data import DomainDataset, StratifiedDomainDataLoader
+-from common import inside, sha, write_json, read_json, REMOTE_ROOT
++from common import inside, sha, write_json, read_json
+ 
+ LABELS = np.repeat(np.arange(9), [3, 3, 3, 3, 4, 3, 3, 3, 3]).astype(np.int64)
+ 

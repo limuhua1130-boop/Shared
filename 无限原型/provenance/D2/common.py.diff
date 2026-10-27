@@ -1,0 +1,76 @@
+--- frozen/common.py
++++ Share/variants/D2/common.py
+@@ -9,8 +9,7 @@
+ from datetime import datetime, timezone
+ 
+ PACKAGE = Path(__file__).resolve().parent
+-REMOTE_ROOT = Path('/home/bk3/data/lmh')
+-REAL_ROOT = Path('/mnt/sd_data1/bk3/lmh')
++# No deployment-specific filesystem root in the portable delivery.
+ EXP = 'EXP-20261027-002'
+ 
+ def sha(path):
+@@ -40,17 +39,10 @@
+     return p
+ 
+ def server_guard(work):
+-    if os.name != 'posix' or platform.node() != 'hust-racksvr1':
+-        raise RuntimeError('This executable preparation/experiment entry is for03 on hust-racksvr1 only')
+-    import pwd
+-    if pwd.getpwuid(os.getuid()).pw_name != 'bk3':
+-        raise RuntimeError('Only bk3 is authorized')
+-    if REMOTE_ROOT.resolve() != REAL_ROOT:
+-        raise RuntimeError('Authorized root mapping changed')
+-    inside(PACKAGE, REMOTE_ROOT)
+-    work = inside(work, REMOTE_ROOT)
+-    if work == REAL_ROOT or EXP not in work.name:
+-        raise RuntimeError('Use a dedicated EXP-20261027-002 work directory')
++    work = Path(work).expanduser().resolve()
++    share = PACKAGE.parents[1]
++    if work == share or work in share.parents or work == PACKAGE or PACKAGE in work.parents:
++        raise ValueError('Work must be a dedicated output directory, outside variant source')
+     work.mkdir(parents=True, exist_ok=True)
+     for name in ['tmp', 'cache', 'logs', 'checks', 'runs']:
+         inside(work / name, work).mkdir(exist_ok=True)
+@@ -62,7 +54,28 @@
+     os.chdir(work)
+     return work
+ 
++from contextlib import contextmanager
++@contextmanager
++def exclusive_lock(path):
++    path = Path(path); path.parent.mkdir(parents=True, exist_ok=True)
++    with path.open('a+b') as stream:
++        if os.name == 'nt':
++            import msvcrt
++            stream.seek(0, 2)
++            if stream.tell() == 0: stream.write(b'0'); stream.flush()
++            stream.seek(0); msvcrt.locking(stream.fileno(), msvcrt.LK_NBLCK, 1)
++        else:
++            import fcntl
++            fcntl.flock(stream, fcntl.LOCK_EX | fcntl.LOCK_NB)
++        try: yield
++        finally:
++            if os.name == 'nt':
++                stream.seek(0); msvcrt.locking(stream.fileno(), msvcrt.LK_UNLCK, 1)
++            else: fcntl.flock(stream, fcntl.LOCK_UN)
++
+ def verify_package():
++    from delivery import verify
++    verify()
+     manifest = read_json(PACKAGE / 'manifest.json')
+     for rel, expected in manifest['files'].items():
+         path = inside(PACKAGE / rel, PACKAGE)
+@@ -78,9 +91,10 @@
+     return torch
+ 
+ def process_record(mode):
+-    stat = Path('/proc/self/stat').read_text().rsplit(')', 1)[1].split()
++    stat_path = Path('/proc/self/stat')
++    ticks = int(stat_path.read_text().rsplit(')', 1)[1].split()[19]) if stat_path.exists() else None
+     return dict(mode=mode, experiment_number=EXP, time_utc=datetime.now(timezone.utc).isoformat(),
+-                host=platform.node(), pid=os.getpid(), start_ticks=int(stat[19]),
++                host=platform.node(), pid=os.getpid(), start_ticks=ticks,
+                 command=sys.argv, cwd=os.getcwd(), executable=sys.executable,
+                 CUDA_VISIBLE_DEVICES=os.environ.get('CUDA_VISIBLE_DEVICES'),
+                 formal_training_started=False)

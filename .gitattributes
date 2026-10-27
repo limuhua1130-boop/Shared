@@ -1,0 +1,2 @@
+# Preserve source bytes so the packaged SHA256 manifests remain valid after clone.
+* -text

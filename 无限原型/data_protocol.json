@@ -1,0 +1,15 @@
+{
+  "dataset": "FACED9",
+  "subjects": 123,
+  "trials_per_subject": 28,
+  "shape_per_trial": [
+    32,
+    7500
+  ],
+  "dtype": "float64",
+  "numpy_split_seed": 42,
+  "EA": "author euler_align, whole subject/session before split; direct float64 assignment",
+  "order": "sorted(range(123), key=lambda i: subject_ + str(i))",
+  "outer": "GroupKFold(10), subject",
+  "inner": "StratifiedShuffleSplit(.2), labels only; shared RandomState(42)"
+}

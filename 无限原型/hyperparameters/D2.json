@@ -1,0 +1,282 @@
+{
+  "variant": "D2",
+  "original_config": {
+    "experiment_number": "EXP-20261027-002",
+    "task_id": "TASK-20261027-002",
+    "author_commit": "5ad0df23f802db8402b734ff2cd4f2a4ab4c93b9",
+    "dataset": "FACED9",
+    "subjects": 123,
+    "trials_per_subject": 28,
+    "shape_per_trial": [
+      32,
+      7500
+    ],
+    "segmentation": "whole_trial",
+    "input_align": true,
+    "domain_adaptation": true,
+    "outer_folds": 10,
+    "outer_split": "GroupKFold(10), no shuffle, subjects as groups",
+    "inner_split": "StratifiedShuffleSplit(.2), labels only as in effective demo",
+    "numpy_split_seed": 42,
+    "torch_seed": 42,
+    "python_seed": 42,
+    "seed_stream": "fold_offset_v1",
+    "repetitions": 1,
+    "dtype": "float64",
+    "epochs": 100,
+    "min_epochs": 70,
+    "patience": 20,
+    "batch_size": 50,
+    "domains_per_batch": 5,
+    "validation_batch": "entire source validation set",
+    "target_batch": "entire target subject/session",
+    "lr": 0.001,
+    "weight_decay_effective": 0.001,
+    "weight_decay_unused_demo_config": 0.0001,
+    "swd_weight": 0.01,
+    "hhsw_reference": "preserve effective D+1 normalized Gaussian/extrinsic-norm then projx law, algebraically native ball",
+    "hhsw_projections": 1000,
+    "hhsw_p": 2,
+    "bn_schedule": {
+      "epochs": 90,
+      "bs0": 50,
+      "bs": 10,
+      "tau0": 0.85
+    },
+    "model": {
+      "F1": 8,
+      "F2": 16,
+      "D": 2,
+      "kernel_1": 64,
+      "kernel_2": 16,
+      "dropout": 0.25
+    },
+    "geometry_tap": "poincare original postpool/flatten before BMLR",
+    "materials_and_cones": "not applicable",
+    "formal_training_authorized_in_this_preparation": true,
+    "future_allowed_physical_gpus": [
+      0,
+      3
+    ],
+    "base_experiment": "EXP-20261024-001",
+    "seed_policy": "42+fold",
+    "curvature": -1,
+    "ball_projection_max_norm": 0.99999999,
+    "ball_mean": "author Ball implicit derivative; rationalized fixed point; max100/atol=rtol=1e-12",
+    "initialization": "Unchanged mother constructor then CPU float64 Gaussian BMLR; paired actual state/RNG checks required",
+    "variant": "D2",
+    "head": {
+      "method": "HBNN BMLR section3",
+      "commit": "d5c79c8eed36a0b7c2f15e9a8fbcd0318216e5b0",
+      "intrinsic_dimension": 3744,
+      "feature_dimension": 3744,
+      "classes": 9,
+      "weight_v": "normal(0,3744**-.5); normalized each forward",
+      "weight_g": "log(norm(weight_v)); exp in forward",
+      "bias": "learnable zero",
+      "EPS": 1e-08,
+      "curvature": -1,
+      "ordinary_parameters_weight_decay": 0.001
+    }
+  },
+  "effective": {
+    "optimizer": {
+      "class_name": "geoopt.optim.RiemannianAdam",
+      "lr": 0.001,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08,
+      "amsgrad": false,
+      "stabilize": null,
+      "groups": [
+        {
+          "rule": "prefix lmlp/lc1/bn/avpool/elu AND external geoopt.ManifoldParameter",
+          "weight_decay": 0
+        },
+        {
+          "rule": "all remaining parameters; BMLR included",
+          "weight_decay": 0.001
+        }
+      ],
+      "source": "model.py: configure_optimizers; engine.py: RetainedTrainer; external geoopt==0.5.1"
+    },
+    "training": {
+      "max_epochs": 100,
+      "min_epochs": 70,
+      "patience": 20,
+      "stop_condition": "request only effective when zero-based current_epoch > 70",
+      "selection": "minimum source validation CE",
+      "CE": {
+        "reduction": "mean",
+        "weight": null,
+        "label_smoothing": 0,
+        "ignore_index": -100
+      },
+      "train_loss": "CE + .01 * sum(domain HHSW)",
+      "lr_scheduler": null,
+      "AMP": false,
+      "gradient_clipping": null
+    },
+    "sampling": {
+      "batch_size": 50,
+      "domains_per_batch": 5,
+      "samples_per_domain": 10,
+      "shuffle": true,
+      "drop_last": false,
+      "num_workers": 0,
+      "validation_sizes": [
+        616,
+        622
+      ],
+      "target_batch_size": 28,
+      "workers": 0,
+      "seed": "42+fold",
+      "split_seed": 42,
+      "sampler": "original StratifiedDomainSampler, per-domain StratifiedKFold; may stop when fewer than 5 domains remain"
+    },
+    "BN": {
+      "dispersion": "SCALAR",
+      "learn_mean": false,
+      "learn_std": true,
+      "declared_shared_std_used_by_forward": false,
+      "eps": 1e-05,
+      "initial_eta": 1.0,
+      "initial_eta_test": 0.1,
+      "epochs": 90,
+      "bs0": 50,
+      "bs": 10,
+      "tau0": 0.85,
+      "frechet_max_iter": 100,
+      "frechet_float64_rtol": 1e-12,
+      "frechet_float64_atol": 1e-12,
+      "eta": "1 - (rho**(90*max(90-e,0)/89) - rho**90); rho=(10/50)**(1/90)",
+      "actual_module_eta_test": ".85**(.2*(1-w)+w); w=max(90-e,0)/89"
+    },
+    "model": {
+      "input_shape": [
+        "B",
+        32,
+        7500
+      ],
+      "F1": 8,
+      "F2": 16,
+      "D": 2,
+      "kernel1": [
+        1,
+        64
+      ],
+      "kernel1_padding": [
+        0,
+        32
+      ],
+      "kernel1_stride": 1,
+      "spatial_kernel": [
+        32,
+        1
+      ],
+      "spatial_groups": 8,
+      "depthwise_kernel": [
+        1,
+        16
+      ],
+      "depthwise_padding": [
+        0,
+        8
+      ],
+      "depthwise_groups": 16,
+      "euclidean_conv_bias": false,
+      "euclidean_bn_momentum": 0.01,
+      "euclidean_bn_eps": 0.001,
+      "euclidean_bn_affine": true,
+      "euclidean_activation": "ELU alpha=1",
+      "pool1": [
+        1,
+        4
+      ],
+      "pool1_stride": 4,
+      "dropout": 0.25,
+      "hyperbolic_pool": [
+        1,
+        8
+      ],
+      "pool2_stride": 8,
+      "pointwise_kernel": 1,
+      "pointwise_bias": false,
+      "pointwise_init_uniform": [
+        -0.02,
+        0.02
+      ],
+      "pointwise_scale": 1,
+      "pointwise_learn_scale": false,
+      "pointwise_normalize": false,
+      "L2_denominator_add": 1e-08,
+      "feature_intrinsic_dimension": 3744,
+      "classes": 9,
+      "curvature": -1.0,
+      "learn_curvature": false,
+      "formal_forward": "block1 -> ec1 -> normalize/map -> lc1 -> bn -> elu -> avpool -> manifold flatten -> BMLR",
+      "block2": "constructed and used for feature_dim/init RNG, not executed in formal forward",
+      "feature_dimension": 3744
+    },
+    "head": {
+      "source": "byte-unchanged official HBNN BMLR.py",
+      "K": -1.0,
+      "bias": true,
+      "weight_v_init": "N(0,3744**-.5)",
+      "weight_v_normalized_each_forward": true,
+      "weight_g_init": "log(norm(v))",
+      "positive_scale": "exp(g)",
+      "bias_init": 0,
+      "dtype": "float64",
+      "EPS": 1e-08,
+      "logits": "-Busemann * exp(g) + bias",
+      "parameters": 33714,
+      "init_order": "original whole mother including discarded HMLR, then scoped CPU float64 official BMLR",
+      "metric": "poincare"
+    },
+    "evaluation": {
+      "REFIT": "per target domain 28 unlabelled trials; no optimizer/target-label selection",
+      "freeze_before_truth": true,
+      "score": "separate CPU process",
+      "metrics": [
+        "balanced_accuracy",
+        "accuracy",
+        "macro_f1",
+        "kappa"
+      ],
+      "classes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "macro_f1_zero_division": 0,
+      "primary": "123-domain equal mean / sample SD(ddof1)",
+      "secondary": "10-fold equal"
+    },
+    "execution": {
+      "dtype": "float64",
+      "torch_threads": 2,
+      "torch_interop_threads": 1,
+      "gpus": [
+        0,
+        3
+      ],
+      "pipelines_per_gpu": 1,
+      "checkpoint": "full model, optimizer, RNG, BN topology/extra, ES, BN scheduler, epoch-boundary replay"
+    },
+    "geometry_numeric": {
+      "ball_projection_max_norm": 0.99999999,
+      "scaling_zero_threshold": 1e-15,
+      "centroid_floor": 1e-08
+    }
+  },
+  "evidence": "Frozen config + actual RetainedTrainer/build_model/forward/operator calls; static audit, no new numerical run"
+}

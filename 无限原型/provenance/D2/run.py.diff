@@ -1,0 +1,67 @@
+--- frozen/run.py
++++ Share/variants/D2/run.py
+@@ -1,56 +1,9 @@
+-"""Scientific single-stage entry;03 owns admission, process identities and queues."""
++"""Compatibility entry; use Share/share.py for all documented commands."""
+ from pathlib import Path
+-import argparse,json
+-from runtime import bootstrap,inputs,binding,config,attempt_label,claim_attempt
+-from common import inside,REMOTE_ROOT,read_json,write_json,process_record
+-
+-def main():
+-    p=argparse.ArgumentParser();p.add_argument('mode',choices=['preflight','algebra','smoke','capacity','train','score','evaluation-score','export'])
+-    p.add_argument('--work',required=True);p.add_argument('--cache',required=True)
+-    p.add_argument('--gpu',type=int,choices=[0,3]);p.add_argument('--fold',type=int,choices=range(10))
+-    p.add_argument('--attempt',type=int,default=1,help='Training attempt; score always uses stored run_identity')
+-    p.add_argument('--resume',action='store_true');p.add_argument('--full-cache-hash',action='store_true')
+-    p.add_argument('--check-mode',choices=['smoke','capacity'])
+-    p.add_argument('--checkpoint');p.add_argument('--output');p.add_argument('--indices-json')
+-    a=p.parse_args()
+-    if a.attempt<1:p.error('--attempt must be a positive integer')
+-    torch,work,manifest=bootstrap(a.work,a.gpu);cache=inside(a.cache,REMOTE_ROOT)
+-    info,rows,splits=inputs(cache,a.full_cache_hash)
+-    if a.mode=='preflight':
+-        assert a.gpu is None
+-        from binding import regression
+-        binding_checks=regression(binding(0,cache,manifest,None))
+-        for s in splits:
+-            assert len(set(s['train']+s['val']+s['test']))==3444
+-            assert not set(rows[i]['subject'] for i in s['test']) & set(rows[i]['subject'] for i in s['train']+s['val'])
+-        write_json(work/'checks/preflight.json',dict(passed=True,manifest=manifest,cache_full_hash=a.full_cache_hash,validation_sizes=[len(s['val']) for s in splits],torch=torch.__version__,binding_checks=binding_checks))
+-    elif a.mode in ['algebra','smoke','capacity']:
+-        assert a.mode!='algebra' or a.gpu is None
+-        assert a.mode!='capacity' or a.gpu is not None
+-        from validate import validate
+-        validate(cache,work,a.mode,a.gpu)
+-    elif a.mode=='evaluation-score':
+-        assert a.gpu is None and a.check_mode is not None
+-        from evaluation_check import score_evaluation
+-        score_evaluation(cache,work,a.check_mode,manifest)
+-    elif a.mode=='train':
+-        assert a.gpu is not None and a.fold is not None
+-        from workflow import run_fold
+-        write_json(work/f'process_fold{a.fold:02d}.json',dict(process_record('train'),fold=a.fold,attempt=attempt_label(a.attempt)))
+-        run_fold(cache,work,a.fold,a.gpu,manifest,a.resume,attempt=a.attempt)
+-    elif a.mode=='score':
+-        assert a.gpu is None and a.fold is not None
+-        from workflow import score_fold
+-        directory=work/'runs'/f'fold_{a.fold:02d}'
+-        stored=read_json(directory/'run_identity.json')
+-        expected=binding(a.fold,cache,manifest,stored['physical_gpu'],attempt=claim_attempt(stored))
+-        from binding import require_binding
+-        require_binding(stored,expected)
+-        result=score_fold(cache,directory,expected);print(json.dumps(result),flush=True)
+-    else:
+-        from engine import export_geometry
+-        checkpoint=inside(a.checkpoint,work);out=inside(a.output,work)
+-        indices=read_json(inside(a.indices_json,work)) if a.indices_json else None
+-        export_geometry(config(a.fold),cache,checkpoint,out,'cuda:0' if a.gpu is not None else 'cpu',indices)
+-
+-if __name__=='__main__':main()
++import sys
++root=Path(__file__).resolve().parents[2]
++sys.path.insert(0,str(root))
++from share import main
++if __name__=="__main__":
++    sys.argv[1:1]=["run","--variant",Path(__file__).resolve().parent.name]
++    main()

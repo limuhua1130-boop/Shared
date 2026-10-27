@@ -1,0 +1,66 @@
+--- frozen/runtime.py
++++ Share/variants/D1/runtime.py
+@@ -1,61 +1,2 @@
+-from pathlib import Path
+-import os,sys,json,random
+-import numpy as np
+-from common import PACKAGE,sha,read_json,write_json,inside,REAL_ROOT,REMOTE_ROOT,server_guard,verify_package,boot_torch
+-EXP='EXP-20261027-001'
+-UUID={0:'GPU-6bce31eb-3ddf-c9e3-aa11-51d8349da590',3:'GPU-949b3737-8fc5-2c60-5a71-fcbe02c00d4d'}
+-def bootstrap(work,gpu=None):
+-    work=server_guard(Path(work))
+-    if gpu is not None:
+-        import subprocess
+-        actual=subprocess.check_output(['nvidia-smi','-i',str(gpu),'--query-gpu=uuid','--format=csv,noheader'],text=True).strip()
+-        assert actual==UUID[gpu] and os.environ.get('CUDA_VISIBLE_DEVICES')==actual
+-    else:assert os.environ.get('CUDA_VISIBLE_DEVICES','')==''
+-    manifest=verify_package();torch=boot_torch()
+-    from trainer_metric_compat import install
+-    install();return torch,work,manifest
+-def inputs(cache,full_hash=False):
+-    cache=inside(Path(cache),REMOTE_ROOT);cfg=read_json(PACKAGE/'inputs.json')
+-    for name,r in cfg['cache'].items():
+-        path=inside(cache/name,REMOTE_ROOT)
+-        assert path==Path(r['path']).resolve()
+-        if name!='X.npy' or full_hash:assert sha(path)==r['sha256'],name
+-    data=np.load(cache/'X.npy',mmap_mode='r');assert data.shape==(3444,32,7500) and data.dtype==np.float64
+-    rows=read_json(cache/'ids.json');splits=read_json(cache/'splits.json')
+-    assert len(rows)==3444 and len(splits)==10
+-    return cfg,rows,splits
+-def seed(fold):
+-    import torch
+-    random.seed(42+fold);np.random.seed(42+fold);torch.manual_seed(42+fold)
+-    if torch.cuda.is_available():
+-        assert torch.cuda.device_count()==1;torch.cuda.manual_seed_all(42+fold)
+-def attempt_label(attempt):
+-    if type(attempt)is not int or attempt<1:
+-        raise ValueError('Attempt must be a positive integer')
+-    return f'R{attempt:02d}'
+-
+-def claim_attempt(stored):
+-    label=stored['attempt']
+-    if (type(label)is not str or len(label)<3 or label[0]!='R'
+-            or not label[1:].isascii() or not label[1:].isdecimal()):
+-        raise ValueError('Stored attempt is not a canonical RNN identity')
+-    value=int(label[1:])
+-    if attempt_label(value)!=label:
+-        raise ValueError('Stored attempt is not canonical')
+-    return value
+-
+-def binding(fold,cache,manifest,gpu,attempt=1):
+-    label=attempt_label(attempt)
+-    info,rows,splits=inputs(cache);split=next(s for s in splits if s['fold']==fold)
+-    return dict(experiment_number=EXP,task='TASK-20261027-002',fold=fold,seed=42+fold,attempt=label,
+-        run_number=f'{EXP}-F{fold:02d}-S{42+fold}-{label}',manifest_sha256=manifest,
+-        config_sha256=sha(PACKAGE/'config.json'),source_manifest_sha256=sha(PACKAGE/'source_manifest.json'),
+-        inputs_sha256=sha(PACKAGE/'inputs.json'),cache_hashes={k:v['sha256'] for k,v in info['cache'].items()},
+-        train_ids=split['train'],val_ids=split['val'],target_ids=split['test'],
+-        target_order=sorted({rows[i]['domain'] for i in split['test']}),
+-        target_ids_by_domain={str(d):[i for i in split['test'] if rows[i]['domain']==d] for d in sorted({rows[i]['domain'] for i in split['test']})},
+-        physical_gpu=gpu,gpu_uuid=UUID[gpu] if gpu is not None else None,
+-        geometry='Lorentz curvature -1',initialization='fresh, no trained weights')
+-def config(fold):
+-    cfg=read_json(PACKAGE/'config.json');cfg.update(fold=fold,actual_fold_seed=42+fold,torch_seed=42+fold,python_seed=42+fold,numpy_training_seed=42+fold)
+-    return cfg
++"""Portable IO only. Scientific code stays in this variant directory."""
++from portable_runtime import *

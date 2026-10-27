@@ -1,0 +1,360 @@
+{
+  "note": "Declaration inventory, including unused defaults; effective values are D1.json/D2.json",
+  "operators": {
+    "D1": [
+      {
+        "file": "variants/D1/model.py",
+        "line": 13,
+        "function": "__init__",
+        "declared_defaults": {
+          "chunk_size": "151",
+          "num_electrodes": "60",
+          "F1": "8",
+          "F2": "16",
+          "D": "2",
+          "bnorm_dispersion": "bn.BatchNormDispersion.SCALAR",
+          "num_classes": "2",
+          "kernel_1": "64",
+          "kernel_2": "16",
+          "dropout": "0.25",
+          "domains": "[]",
+          "domain_adaptation": "True",
+          "device": "'cuda'",
+          "dtype": "torch.float64",
+          "lr": "0.01",
+          "weight_decay": "0.001"
+        }
+      },
+      {
+        "file": "variants/D1/model.py",
+        "line": 129,
+        "function": "configure_optimizers",
+        "declared_defaults": {
+          "lr": "None",
+          "weight_decay": "None"
+        }
+      },
+      {
+        "file": "variants/D1/bmlr_head.py",
+        "line": 25,
+        "function": "__init__",
+        "declared_defaults": {
+          "classes": "9",
+          "metric": "'lorentz'"
+        }
+      },
+      {
+        "file": "variants/D1/author/nets/batchnorm.py",
+        "line": 32,
+        "function": "__init__",
+        "declared_defaults": {
+          "eta": "1.0",
+          "eta_test": "0.1",
+          "test_stats_mode": "BatchNormTestStatsMode.BUFFER"
+        }
+      },
+      {
+        "file": "variants/D1/author/nets/batchnorm.py",
+        "line": 43,
+        "function": "set_eta",
+        "declared_defaults": {
+          "eta": "None",
+          "eta_test": "None"
+        }
+      },
+      {
+        "file": "variants/D1/author/nets/batchnorm.py",
+        "line": 90,
+        "function": "__init__",
+        "declared_defaults": {
+          "eta": "1.0",
+          "eta_test": "0.1",
+          "karcher_steps": "1",
+          "learn_mean": "True",
+          "learn_std": "True",
+          "dispersion": "BatchNormDispersion.SCALAR",
+          "eps": "1e-05",
+          "mean": "None",
+          "std": "None"
+        }
+      },
+      {
+        "file": "variants/D1/author/nets/batchnorm.py",
+        "line": 194,
+        "function": "__init__",
+        "declared_defaults": {
+          "eta": "0.1"
+        }
+      },
+      {
+        "file": "variants/D1/author/nets/batchnorm.py",
+        "line": 209,
+        "function": "__init__",
+        "declared_defaults": {
+          "eta": "0.1"
+        }
+      },
+      {
+        "file": "variants/D1/author/nets/batchnorm.py",
+        "line": 226,
+        "function": "__init__",
+        "declared_defaults": {
+          "eta": "1.0",
+          "eta_test": "0.1"
+        }
+      },
+      {
+        "file": "variants/D1/author/nets/batchnorm.py",
+        "line": 242,
+        "function": "__init__",
+        "declared_defaults": {
+          "learn_mean": "True",
+          "learn_std": "True",
+          "dispersion": "BatchNormDispersion.NONE",
+          "test_stats_mode": "BatchNormTestStatsMode.BUFFER",
+          "eta": "1.0",
+          "eta_test": "0.1",
+          "domains": "Tensor([])"
+        }
+      },
+      {
+        "file": "variants/D1/author/nets/callbacks.py",
+        "line": 51,
+        "function": "__init__",
+        "declared_defaults": {
+          "bs": "32",
+          "bs0": "64",
+          "tau0": "0.9"
+        }
+      },
+      {
+        "file": "variants/D1/author/nets/callbacks.py",
+        "line": 77,
+        "function": "__init__",
+        "declared_defaults": {
+          "metric": "'val_loss'",
+          "higher_is_better": "False",
+          "patience": "15",
+          "verbose": "False"
+        }
+      },
+      {
+        "file": "variants/D1/author/lib/lorentz/layers/LFC.py",
+        "line": 21,
+        "function": "__init__",
+        "declared_defaults": {
+          "bias": "False",
+          "init_scale": "None",
+          "learn_scale": "False",
+          "normalize": "False"
+        }
+      },
+      {
+        "file": "variants/D1/author/lib/lorentz/layers/LFC.py",
+        "line": 96,
+        "function": "__init__",
+        "declared_defaults": {
+          "bias": "False",
+          "init_scale": "None",
+          "learn_scale": "False",
+          "normalize": "False"
+        }
+      }
+    ],
+    "D2": [
+      {
+        "file": "variants/D2/model.py",
+        "line": 14,
+        "function": "__init__",
+        "declared_defaults": {
+          "chunk_size": "151",
+          "num_electrodes": "60",
+          "F1": "8",
+          "F2": "16",
+          "D": "2",
+          "bnorm_dispersion": "bn.BatchNormDispersion.SCALAR",
+          "num_classes": "2",
+          "kernel_1": "64",
+          "kernel_2": "16",
+          "dropout": "0.25",
+          "domains": "[]",
+          "domain_adaptation": "True",
+          "device": "'cuda'",
+          "dtype": "torch.float64",
+          "lr": "0.01",
+          "weight_decay": "0.001"
+        }
+      },
+      {
+        "file": "variants/D2/model.py",
+        "line": 131,
+        "function": "configure_optimizers",
+        "declared_defaults": {
+          "lr": "None",
+          "weight_decay": "None"
+        }
+      },
+      {
+        "file": "variants/D2/bmlr_head.py",
+        "line": 25,
+        "function": "__init__",
+        "declared_defaults": {
+          "classes": "9",
+          "metric": "'lorentz'"
+        }
+      },
+      {
+        "file": "variants/D2/author/nets/batchnorm.py",
+        "line": 32,
+        "function": "__init__",
+        "declared_defaults": {
+          "eta": "1.0",
+          "eta_test": "0.1",
+          "test_stats_mode": "BatchNormTestStatsMode.BUFFER"
+        }
+      },
+      {
+        "file": "variants/D2/author/nets/batchnorm.py",
+        "line": 43,
+        "function": "set_eta",
+        "declared_defaults": {
+          "eta": "None",
+          "eta_test": "None"
+        }
+      },
+      {
+        "file": "variants/D2/author/nets/batchnorm.py",
+        "line": 90,
+        "function": "__init__",
+        "declared_defaults": {
+          "eta": "1.0",
+          "eta_test": "0.1",
+          "karcher_steps": "1",
+          "learn_mean": "True",
+          "learn_std": "True",
+          "dispersion": "BatchNormDispersion.SCALAR",
+          "eps": "1e-05",
+          "mean": "None",
+          "std": "None"
+        }
+      },
+      {
+        "file": "variants/D2/author/nets/batchnorm.py",
+        "line": 194,
+        "function": "__init__",
+        "declared_defaults": {
+          "eta": "0.1"
+        }
+      },
+      {
+        "file": "variants/D2/author/nets/batchnorm.py",
+        "line": 209,
+        "function": "__init__",
+        "declared_defaults": {
+          "eta": "0.1"
+        }
+      },
+      {
+        "file": "variants/D2/author/nets/batchnorm.py",
+        "line": 226,
+        "function": "__init__",
+        "declared_defaults": {
+          "eta": "1.0",
+          "eta_test": "0.1"
+        }
+      },
+      {
+        "file": "variants/D2/author/nets/batchnorm.py",
+        "line": 242,
+        "function": "__init__",
+        "declared_defaults": {
+          "learn_mean": "True",
+          "learn_std": "True",
+          "dispersion": "BatchNormDispersion.NONE",
+          "test_stats_mode": "BatchNormTestStatsMode.BUFFER",
+          "eta": "1.0",
+          "eta_test": "0.1",
+          "domains": "Tensor([])"
+        }
+      },
+      {
+        "file": "variants/D2/author/nets/callbacks.py",
+        "line": 51,
+        "function": "__init__",
+        "declared_defaults": {
+          "bs": "32",
+          "bs0": "64",
+          "tau0": "0.9"
+        }
+      },
+      {
+        "file": "variants/D2/author/nets/callbacks.py",
+        "line": 77,
+        "function": "__init__",
+        "declared_defaults": {
+          "metric": "'val_loss'",
+          "higher_is_better": "False",
+          "patience": "15",
+          "verbose": "False"
+        }
+      },
+      {
+        "file": "variants/D2/author/lib/lorentz/layers/LFC.py",
+        "line": 21,
+        "function": "__init__",
+        "declared_defaults": {
+          "bias": "False",
+          "init_scale": "None",
+          "learn_scale": "False",
+          "normalize": "False"
+        }
+      },
+      {
+        "file": "variants/D2/author/lib/lorentz/layers/LFC.py",
+        "line": 96,
+        "function": "__init__",
+        "declared_defaults": {
+          "bias": "False",
+          "init_scale": "None",
+          "learn_scale": "False",
+          "normalize": "False"
+        }
+      },
+      {
+        "file": "variants/D2/ball.py",
+        "line": 36,
+        "function": "__init__",
+        "declared_defaults": {
+          "parameter": "True"
+        }
+      },
+      {
+        "file": "variants/D2/ball.py",
+        "line": 70,
+        "function": "__init__",
+        "declared_defaults": {
+          "bias": "False"
+        }
+      },
+      {
+        "file": "variants/D2/ball.py",
+        "line": 85,
+        "function": "__init__",
+        "declared_defaults": {
+          "padding": "(0, 0)",
+          "bias": "False",
+          "stride": "1"
+        }
+      },
+      {
+        "file": "variants/D2/ball_bn.py",
+        "line": 7,
+        "function": "__init__",
+        "declared_defaults": {
+          "eta": "1.0",
+          "eta_test": "0.1"
+        }
+      }
+    ]
+  }
+}

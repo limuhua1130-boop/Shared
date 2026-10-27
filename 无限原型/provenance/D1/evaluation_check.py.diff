@@ -1,0 +1,11 @@
+--- frozen/evaluation_check.py
++++ Share/variants/D1/evaluation_check.py
+@@ -42,7 +42,7 @@
+     import numpy as np
+     from common import load_pt
+     rows=read_json(cache/'ids.json');item=read_json(directory/'prediction_complete.json')['predictions'][0]
+-    frozen=load_pt(item['path']);cm=np.zeros((9,9),dtype=np.int64)
++    frozen=load_pt(directory/item['path']);cm=np.zeros((9,9),dtype=np.int64)
+     for i,p in zip(frozen['indices'],frozen['predictions'].tolist()):cm[rows[i]['label'],p]+=1
+     tp=cm.diagonal();nr=cm.sum(1);nc=cm.sum(0);n=cm.sum()
+     acc=float(tp.sum()/n);ba=float((tp[nr>0]/nr[nr>0]).mean())
