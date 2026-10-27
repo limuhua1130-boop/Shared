@@ -6,13 +6,13 @@
       "evaluation_check.py",
       "run.py",
       "runtime.py",
-      "workflow.py"
+      "workflow.py",
+      "engine.py"
     ],
     "unchanged_top_level_python": [
       "binding.py",
       "bmlr_head.py",
       "checkpoint.py",
-      "engine.py",
       "head_checks.py",
       "model.py",
       "objective.py",
@@ -25,7 +25,8 @@
     "config_sha256": "0babd398729c1e2730c19617e25453c5d6054a4155d0008c0fe1891104f19af8",
     "frozen_manifest_sha256": "ac977c17fe00b178892bc12c5532d28df7707d8162faacb76bdfb77d97936881",
     "compatibility_sha256": "182e248b6d7751b054cbe153e55a975b0912dc10c6660e86da55ce242dea7c0f",
-    "compatibility_origin": "validated03 v3 operational body, internalized by004; no004 model/config/control flow copied"
+    "compatibility_origin": "validated03 v3 operational body, internalized by004; no004 model/config/control flow copied",
+    "loss_logging_revision": "Share-v2-loss; detached observations/checkpoint cursor only; v1 metadata preserved separately"
   },
   "D2": {
     "changed_outer_files": [
@@ -34,7 +35,8 @@
       "evaluation_check.py",
       "run.py",
       "runtime.py",
-      "workflow.py"
+      "workflow.py",
+      "engine.py"
     ],
     "unchanged_top_level_python": [
       "ball.py",
@@ -43,7 +45,6 @@
       "binding.py",
       "bmlr_head.py",
       "checkpoint.py",
-      "engine.py",
       "head_checks.py",
       "model.py",
       "objective.py",
@@ -56,6 +57,7 @@
     "config_sha256": "2860f781b29a54bd9f270175ea3f8d1aa51eff51745f0b6a8db5f182c8ebf979",
     "frozen_manifest_sha256": "30b7ef0799f42b4643a20d361523f812d37bb300e4f55f0341ab0ff220597f6e",
     "compatibility_sha256": "182e248b6d7751b054cbe153e55a975b0912dc10c6660e86da55ce242dea7c0f",
-    "compatibility_origin": "validated03 v3 operational body, internalized by004; no004 model/config/control flow copied"
+    "compatibility_origin": "validated03 v3 operational body, internalized by004; no004 model/config/control flow copied",
+    "loss_logging_revision": "Share-v2-loss; detached observations/checkpoint cursor only; v1 metadata preserved separately"
   }
 }

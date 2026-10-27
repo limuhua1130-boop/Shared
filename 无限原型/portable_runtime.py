@@ -94,7 +94,7 @@ def claim_attempt(stored):
 def binding(fold,cache,manifest,gpu,attempt=1):
     label=attempt_label(attempt);info,rows,splits=inputs(cache);split=splits[fold]
     if gpu is not None and gpu not in UUID: raise ValueError('Missing physical GPU UUID; CPU scoring must use saved identity')
-    return dict(experiment_number=EXP,task='TASK-20261027-007',delivery='Share-v1',fold=fold,seed=42+fold,attempt=label,
+    return dict(experiment_number=EXP,task='TASK-20261027-010',delivery='Share-v2-loss',fold=fold,seed=42+fold,attempt=label,
         run_number=f'{EXP}-F{fold:02d}-S{42+fold}-{label}',manifest_sha256=manifest,
         config_sha256=sha(PACKAGE/'config.json'),source_manifest_sha256=sha(PACKAGE/'source_manifest.json'),
         inputs_sha256=sha(Path(cache)/'prepared.json'),cache_hashes={k:v['sha256'] for k,v in info['cache'].items()},

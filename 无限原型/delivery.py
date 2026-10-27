@@ -56,7 +56,7 @@ def aggregate(work,output,folds):
         identity=read(d/'run_identity.json'); frozen=read(d/'prediction_complete.json')
         if complete['binding']!=identity or frozen['binding']!=identity: raise ValueError('Mismatched run identities')
         assert complete['completed'] and complete['scored_after_prediction_freeze'] and frozen['complete']
-        assert identity['delivery']=='Share-v1' and identity['fold']==fold and identity['seed']==42+fold
+        assert identity['delivery'] in ('Share-v1','Share-v2-loss') and identity['fold']==fold and identity['seed']==42+fold
         assert sha(d/'selected.pt')==frozen['selected_sha256']
         results=read(d/'target_results.json')
         assert len(results)==complete['target_domains']==len(frozen['predictions'])

@@ -1,454 +1,246 @@
 {
-  "task": "TASK-20261027-007",
-  "scope": "D1/D2 original max100 / lr.001 only",
+  "delivery": "Share-v2-loss",
   "passed": true,
-  "syntax_python_files": 443,
-  "upstream_syntax_warnings": [
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "syntax_files": 446,
+  "syntax_warnings": [
     {
-      "file": "variants/D1/author/Geometry/hyperbolic/hyperboloid.py",
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D1\\author\\Geometry\\hyperbolic\\frechetmean\\backward\\ball_backward.py",
+      "line": 61,
+      "message": "invalid escape sequence '\\p'"
+    },
+    {
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D1\\author\\Geometry\\hyperbolic\\hyperboloid.py",
       "line": 10,
       "message": "invalid escape sequence '\\m'"
     },
     {
-      "file": "variants/D1/author/Geometry/hyperbolic/hyperboloid.py",
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D1\\author\\Geometry\\hyperbolic\\hyperboloid.py",
       "line": 119,
       "message": "invalid escape sequence '\\s'"
     },
     {
-      "file": "variants/D1/author/Geometry/hyperbolic/hyperboloid.py",
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D1\\author\\Geometry\\hyperbolic\\hyperboloid.py",
       "line": 142,
       "message": "invalid escape sequence '\\L'"
     },
     {
-      "file": "variants/D1/author/Geometry/hyperbolic/frechetmean/backward/ball_backward.py",
-      "line": 61,
-      "message": "invalid escape sequence '\\p'"
-    },
-    {
-      "file": "variants/D1/author/hsssw/lib/utils_hyperbolic.py",
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D1\\author\\hsssw\\lib\\utils_hyperbolic.py",
       "line": 80,
       "message": "invalid escape sequence '\\i'"
     },
     {
-      "file": "variants/D1/author/hsssw/lib/utils_hyperbolic.py",
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D1\\author\\hsssw\\lib\\utils_hyperbolic.py",
       "line": 93,
       "message": "invalid escape sequence '\\i'"
     },
     {
-      "file": "variants/D1/author/hsssw/lib/utils_hyperbolic.py",
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D1\\author\\hsssw\\lib\\utils_hyperbolic.py",
       "line": 105,
       "message": "invalid escape sequence '\\i'"
     },
     {
-      "file": "variants/D1/author/hsssw/lib/utils_hyperbolic.py",
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D1\\author\\hsssw\\lib\\utils_hyperbolic.py",
       "line": 121,
       "message": "invalid escape sequence '\\i'"
     },
     {
-      "file": "variants/D1/hbnn_author/lib/bnn/Geometry/constantcurvature/ball.py",
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D1\\hbnn_author\\lib\\bnn\\Geometry\\constantcurvature\\ball.py",
       "line": 9,
       "message": "invalid escape sequence '\\|'"
     },
     {
-      "file": "variants/D1/hbnn_author/lib/bnn/Geometry/constantcurvature/hyperboloid.py",
-      "line": 11,
-      "message": "invalid escape sequence '\\m'"
-    },
-    {
-      "file": "variants/D1/hbnn_author/lib/bnn/Geometry/constantcurvature/hyperboloid.py",
-      "line": 120,
-      "message": "invalid escape sequence '\\s'"
-    },
-    {
-      "file": "variants/D1/hbnn_author/lib/bnn/Geometry/constantcurvature/hyperboloid.py",
-      "line": 143,
-      "message": "invalid escape sequence '\\L'"
-    },
-    {
-      "file": "variants/D1/hbnn_author/lib/bnn/Geometry/constantcurvature/frechetmean/backward/ball_backward.py",
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D1\\hbnn_author\\lib\\bnn\\Geometry\\constantcurvature\\frechetmean\\backward\\ball_backward.py",
       "line": 61,
       "message": "invalid escape sequence '\\p'"
     },
     {
-      "file": "variants/D2/author/Geometry/hyperbolic/hyperboloid.py",
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D1\\hbnn_author\\lib\\bnn\\Geometry\\constantcurvature\\hyperboloid.py",
+      "line": 11,
+      "message": "invalid escape sequence '\\m'"
+    },
+    {
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D1\\hbnn_author\\lib\\bnn\\Geometry\\constantcurvature\\hyperboloid.py",
+      "line": 120,
+      "message": "invalid escape sequence '\\s'"
+    },
+    {
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D1\\hbnn_author\\lib\\bnn\\Geometry\\constantcurvature\\hyperboloid.py",
+      "line": 143,
+      "message": "invalid escape sequence '\\L'"
+    },
+    {
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D2\\author\\Geometry\\hyperbolic\\frechetmean\\backward\\ball_backward.py",
+      "line": 61,
+      "message": "invalid escape sequence '\\p'"
+    },
+    {
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D2\\author\\Geometry\\hyperbolic\\hyperboloid.py",
       "line": 10,
       "message": "invalid escape sequence '\\m'"
     },
     {
-      "file": "variants/D2/author/Geometry/hyperbolic/hyperboloid.py",
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D2\\author\\Geometry\\hyperbolic\\hyperboloid.py",
       "line": 119,
       "message": "invalid escape sequence '\\s'"
     },
     {
-      "file": "variants/D2/author/Geometry/hyperbolic/hyperboloid.py",
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D2\\author\\Geometry\\hyperbolic\\hyperboloid.py",
       "line": 142,
       "message": "invalid escape sequence '\\L'"
     },
     {
-      "file": "variants/D2/author/Geometry/hyperbolic/frechetmean/backward/ball_backward.py",
-      "line": 61,
-      "message": "invalid escape sequence '\\p'"
-    },
-    {
-      "file": "variants/D2/author/hsssw/lib/utils_hyperbolic.py",
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D2\\author\\hsssw\\lib\\utils_hyperbolic.py",
       "line": 80,
       "message": "invalid escape sequence '\\i'"
     },
     {
-      "file": "variants/D2/author/hsssw/lib/utils_hyperbolic.py",
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D2\\author\\hsssw\\lib\\utils_hyperbolic.py",
       "line": 93,
       "message": "invalid escape sequence '\\i'"
     },
     {
-      "file": "variants/D2/author/hsssw/lib/utils_hyperbolic.py",
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D2\\author\\hsssw\\lib\\utils_hyperbolic.py",
       "line": 105,
       "message": "invalid escape sequence '\\i'"
     },
     {
-      "file": "variants/D2/author/hsssw/lib/utils_hyperbolic.py",
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D2\\author\\hsssw\\lib\\utils_hyperbolic.py",
       "line": 121,
       "message": "invalid escape sequence '\\i'"
     },
     {
-      "file": "variants/D2/hbnn_author/lib/bnn/Geometry/constantcurvature/ball.py",
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D2\\hbnn_author\\lib\\bnn\\Geometry\\constantcurvature\\ball.py",
       "line": 9,
       "message": "invalid escape sequence '\\|'"
     },
     {
-      "file": "variants/D2/hbnn_author/lib/bnn/Geometry/constantcurvature/hyperboloid.py",
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D2\\hbnn_author\\lib\\bnn\\Geometry\\constantcurvature\\frechetmean\\backward\\ball_backward.py",
+      "line": 61,
+      "message": "invalid escape sequence '\\p'"
+    },
+    {
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D2\\hbnn_author\\lib\\bnn\\Geometry\\constantcurvature\\hyperboloid.py",
       "line": 11,
       "message": "invalid escape sequence '\\m'"
     },
     {
-      "file": "variants/D2/hbnn_author/lib/bnn/Geometry/constantcurvature/hyperboloid.py",
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D2\\hbnn_author\\lib\\bnn\\Geometry\\constantcurvature\\hyperboloid.py",
       "line": 120,
       "message": "invalid escape sequence '\\s'"
     },
     {
-      "file": "variants/D2/hbnn_author/lib/bnn/Geometry/constantcurvature/hyperboloid.py",
+      "path": "D:\\pytorch_study\\Guolab\\XiongIdea\\Share\\无限原型\\variants\\D2\\hbnn_author\\lib\\bnn\\Geometry\\constantcurvature\\hyperboloid.py",
       "line": 143,
       "message": "invalid escape sequence '\\L'"
-    },
-    {
-      "file": "variants/D2/hbnn_author/lib/bnn/Geometry/constantcurvature/frechetmean/backward/ball_backward.py",
-      "line": 61,
-      "message": "invalid escape sequence '\\p'"
     }
   ],
-  "cli_checks": [
+  "cli": [
     {
-      "args": [
+      "command": [
         "share.py",
         "--help"
       ],
-      "returncode": 0,
-      "stdout_sha256": "2e7aaa3bec72542d2fad2a75f15d369d025287196dd726dbfcb17c0b48485ec0"
+      "returncode": 0
     },
     {
-      "args": [
+      "command": [
+        "share.py",
+        "plot-loss",
+        "--help"
+      ],
+      "returncode": 0
+    },
+    {
+      "command": [
         "share.py",
         "run",
         "--help"
       ],
-      "returncode": 0,
-      "stdout_sha256": "ef3fb5a55b03b733a433bfc10e858d992fcd842bed2cc82b010839d53a7f0b5c"
+      "returncode": 0
     },
     {
-      "args": [
+      "command": [
         "share.py",
-        "prepare",
-        "--help"
+        "dependencies"
       ],
-      "returncode": 0,
-      "stdout_sha256": "9ded0d7ed339e1bba2d1f9e1dc9a3b5839fc549def187a40788b34ad5886658e"
+      "returncode": 0
     },
     {
-      "args": [
-        "share.py",
-        "schedule",
-        "--help"
-      ],
-      "returncode": 0,
-      "stdout_sha256": "20867fdb4d459d98aa529acdb0a0a92943112f88951358bf0447a5cdb4da79be"
-    },
-    {
-      "args": [
-        "share.py",
-        "aggregate",
-        "--help"
-      ],
-      "returncode": 0,
-      "stdout_sha256": "77f15b5765e6dcd2a6c4b071ff5f9d1fb964d955d8396d8662c11c5b0bd19b07"
-    },
-    {
-      "args": [
-        "scripts/run_D1_100.py",
-        "--help"
-      ],
-      "returncode": 0,
-      "stdout_sha256": "f03630948ccacd253391e1f71d334b9ef0dabf335673cdb7e5b725c6145530be"
-    },
-    {
-      "args": [
-        "scripts/run_D2_100.py",
-        "--help"
-      ],
-      "returncode": 0,
-      "stdout_sha256": "ad482d3e99767d04131a9fa1cc37a5b58dc5c32a9936d382337755684523b426"
-    },
-    {
-      "args": [
-        "variants/D1/run.py",
-        "--help"
-      ],
-      "returncode": 0,
-      "stdout_sha256": "5e41741a4298e23a0a03c44132ca8510e6c63d182d12d91e63c743b1bbf1ee44"
-    },
-    {
-      "args": [
-        "variants/D2/run.py",
-        "--help"
-      ],
-      "returncode": 0,
-      "stdout_sha256": "5e41741a4298e23a0a03c44132ca8510e6c63d182d12d91e63c743b1bbf1ee44"
-    },
-    {
-      "args": [
+      "command": [
         "share.py",
         "params",
         "--variant",
         "D1"
       ],
-      "returncode": 0,
-      "stdout_sha256": "7d2a09d92fab8423830b3bb2ff44ccd731c6490669aeb4a9e2c9c6e86cc75de1"
+      "returncode": 0
     },
     {
-      "args": [
+      "command": [
         "share.py",
         "params",
         "--variant",
         "D2"
       ],
-      "returncode": 0,
-      "stdout_sha256": "a79d11938858a900390dc81814ccab926f4bb6e9a2d8e39d7f37af4a47afe5e0"
+      "returncode": 0
     },
     {
-      "args": [
+      "command": [
+        "scripts/run_D1_100.py",
+        "--help"
+      ],
+      "returncode": 0
+    },
+    {
+      "command": [
+        "scripts/run_D2_100.py",
+        "--help"
+      ],
+      "returncode": 0
+    },
+    {
+      "command": [
         "share.py",
         "schedule",
         "--cache",
-        "NONEXISTENT_CACHE",
+        "synthetic-unused-cache",
         "--output-root",
-        "NONEXISTENT_OUTPUT",
+        "synthetic-unused-output",
         "--dry-run"
       ],
-      "returncode": 0,
-      "stdout_sha256": "d64867169467f11748477ff7d0f35baa14227664ce9f5c222c647095fd5b67e9"
-    },
-    {
-      "args": [
-        "scripts/run_D1_100.py",
-        "--cache",
-        "NONEXISTENT_CACHE",
-        "--output-root",
-        "NONEXISTENT_OUTPUT",
-        "--folds",
-        "0",
-        "--gpus",
-        "0",
-        "--dry-run"
-      ],
-      "returncode": 0,
-      "stdout_sha256": "173b2050213347f8b15ac981f0a522581614ee838eb2982d9995c354a7cf8669"
-    },
-    {
-      "args": [
-        "scripts/run_D2_100.py",
-        "--cache",
-        "NONEXISTENT_CACHE",
-        "--output-root",
-        "NONEXISTENT_OUTPUT",
-        "--folds",
-        "0",
-        "--gpus",
-        "0",
-        "--dry-run"
-      ],
-      "returncode": 0,
-      "stdout_sha256": "ffc4a201622cc233b4636697a8c265eb6619f5eb2652ec3cb52595f7b25c44f9"
-    },
-    {
-      "args": [
-        "share.py",
-        "dependencies"
-      ],
-      "returncode": 0,
-      "stdout_sha256": "180fe9206a539a137ca25356b4738856a42ecda3476dc45a3924c62928e095a8"
+      "returncode": 0
     }
   ],
-  "import_closure": {
-    "D1": {
-      "local_python_files": 99,
-      "external_import_roots": [
-        "abc",
-        "ast",
-        "builtins",
-        "contextlib",
-        "copy",
-        "datetime",
-        "enum",
-        "fcntl",
-        "functools",
-        "geoopt",
-        "hashlib",
-        "importlib",
-        "inspect",
-        "itertools",
-        "json",
-        "math",
-        "msvcrt",
-        "numpy",
-        "operator",
-        "os",
-        "pandas",
-        "pathlib",
-        "pickle",
-        "platform",
-        "random",
-        "re",
-        "scipy",
-        "sklearn",
-        "statistics",
-        "struct",
-        "subprocess",
-        "sys",
-        "tempfile",
-        "time",
-        "torch",
-        "traceback",
-        "types",
-        "typing",
-        "warnings",
-        "yaml"
-      ],
-      "unresolved": []
-    },
-    "D2": {
-      "local_python_files": 103,
-      "external_import_roots": [
-        "abc",
-        "ast",
-        "builtins",
-        "contextlib",
-        "copy",
-        "datetime",
-        "enum",
-        "fcntl",
-        "functools",
-        "geoopt",
-        "hashlib",
-        "importlib",
-        "inspect",
-        "itertools",
-        "json",
-        "math",
-        "msvcrt",
-        "numpy",
-        "operator",
-        "os",
-        "pandas",
-        "pathlib",
-        "pickle",
-        "platform",
-        "random",
-        "re",
-        "scipy",
-        "sklearn",
-        "statistics",
-        "struct",
-        "subprocess",
-        "sys",
-        "tempfile",
-        "time",
-        "torch",
-        "traceback",
-        "types",
-        "typing",
-        "warnings",
-        "yaml"
-      ],
-      "unresolved": []
-    }
+  "protected_baseline_files": 495,
+  "model_author_hbnn_head_objective_config_bytes_unchanged": true,
+  "unit_tests": {
+    "passed": 6,
+    "scope": "actual v1/v2 train_epoch extracted with stub objective and analytic gradients; no torch",
+    "sha256": "44f96799d36bb680f1a3048795fb7106749e172d62a746a8a732f5a5197e507e"
   },
-  "byte_identity": {
-    "D1": {
-      "changed_outer_files": [
-        "common.py",
-        "data.py",
-        "evaluation_check.py",
-        "run.py",
-        "runtime.py",
-        "workflow.py"
-      ],
-      "unchanged_top_level_python": [
-        "binding.py",
-        "bmlr_head.py",
-        "checkpoint.py",
-        "engine.py",
-        "head_checks.py",
-        "model.py",
-        "objective.py",
-        "optimizer_checkpoint.py",
-        "trainer_metric_compat.py",
-        "validate.py"
-      ],
-      "author_files_unchanged": 105,
-      "hbnn_files_unchanged": 106,
-      "config_sha256": "0babd398729c1e2730c19617e25453c5d6054a4155d0008c0fe1891104f19af8",
-      "frozen_manifest_sha256": "ac977c17fe00b178892bc12c5532d28df7707d8162faacb76bdfb77d97936881",
-      "compatibility_sha256": "182e248b6d7751b054cbe153e55a975b0912dc10c6660e86da55ce242dea7c0f",
-      "compatibility_origin": "validated03 v3 operational body, internalized by004; no004 model/config/control flow copied"
-    },
-    "D2": {
-      "changed_outer_files": [
-        "common.py",
-        "data.py",
-        "evaluation_check.py",
-        "run.py",
-        "runtime.py",
-        "workflow.py"
-      ],
-      "unchanged_top_level_python": [
-        "ball.py",
-        "ball_bn.py",
-        "ball_hhsw.py",
-        "binding.py",
-        "bmlr_head.py",
-        "checkpoint.py",
-        "engine.py",
-        "head_checks.py",
-        "model.py",
-        "objective.py",
-        "optimizer_checkpoint.py",
-        "trainer_metric_compat.py",
-        "validate.py"
-      ],
-      "author_files_unchanged": 105,
-      "hbnn_files_unchanged": 106,
-      "config_sha256": "2860f781b29a54bd9f270175ea3f8d1aa51eff51745f0b6a8db5f182c8ebf979",
-      "frozen_manifest_sha256": "30b7ef0799f42b4643a20d361523f812d37bb300e4f55f0341ab0ff220597f6e",
-      "compatibility_sha256": "182e248b6d7751b054cbe153e55a975b0912dc10c6660e86da55ce242dea7c0f",
-      "compatibility_origin": "validated03 v3 operational body, internalized by004; no004 model/config/control flow copied"
-    }
+  "render": {
+    "passed": true,
+    "epochs": 24,
+    "steps": 96,
+    "synthetic_only": true,
+    "matplotlib": "3.9.2",
+    "local_numpy": "2.3.5",
+    "png_pdf": true,
+    "missing_fields": true,
+    "missing_dependency_expected_exit": 1,
+    "real_cpu_child": true,
+    "visual_review": "02 viewed epoch PNG; 00 explicitly accepted four panels and annotations",
+    "report_sha256": "e2250cc5e6fcbef21137231fee400bc787296299644fc620ef857f4cd27a35dd"
   },
-  "not_executed": [
-    "dependency installation",
-    "torch or numpy import",
-    "EA/cache construction",
-    "model update or training",
-    "server connection",
-    "CUDA"
+  "limitations": [
+    "No actual PyTorch/EEG/EA/REFIT/CUDA/model regression or new experiment",
+    "Synthetic plotting NumPy 2.3.5 differs from frozen scientific NumPy 1.26.4",
+    "Crash after last.pt and before committed.json may lag offline view until resume"
   ],
-  "caveat": "Static import closure and stdlib CLI checks do not prove numerical/runtime compatibility. Data and numerical dependencies must be supplied.",
-  "original_validation": "Original CPU/target-score checks passed with compatibility bridge; original CUDA strict recomputation had retained ~1e-13 BN differences and explicit limited acceptance; no new blanket pass claimed."
+  "resolved_environment_failures": [
+    "Initial sandbox network pip failed; approved retry installed only task-local small plot dependencies",
+    "Initial tests could not use sandbox OS temp directory; rerun with task-local TEMP/TMP passed; no production code relaxation",
+    "Initial sealer correctly stopped on omitted allowed documentation file; added explicitly authorized hyperparameter documentation to allowlist"
+  ],
+  "prior_v1_checks": "provenance/loss-v1/STATIC_CHECKS.json"
 }

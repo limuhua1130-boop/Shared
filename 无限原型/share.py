@@ -9,6 +9,9 @@ def parser():
     sub=p.add_subparsers(dest='command',required=True)
     sub.add_parser('verify',help='Verify all delivery SHA256 values, no scientific imports')
     sub.add_parser('dependencies',help='Read installed package metadata only')
+    plot=sub.add_parser('plot-loss',help='Offline committed loss CSV/JSONL + PNG/PDF; no torch/model/GPU')
+    plot.add_argument('--run-dir',required=True,help='One fold directory containing loss_logs/')
+    plot.add_argument('--output',required=True,help='Separate derived output directory')
     ps=sub.add_parser('params',help='Print frozen complete effective hyperparameters')
     ps.add_argument('--variant',choices=['D1','D2'],required=True)
     prep=sub.add_parser('prepare',help='Raw sub000.pkl...sub122.pkl -> whole-trial EA/cache')
@@ -87,6 +90,15 @@ def main():
         if a.mode=='export' and (not a.checkpoint or not a.output):p.error('Export needs --checkpoint and --output')
         from stage import execute
         execute(a)
+    elif a.command=='plot-loss':
+        os.environ['CUDA_VISIBLE_DEVICES']=''
+        from loss_plot import plot_loss
+        try:
+            result=plot_loss(a.run_dir,a.output)
+        except Exception as e:
+            print(f'plot-loss failed: {type(e).__name__}: {e}',file=sys.stderr)
+            raise SystemExit(1)
+        print(json.dumps(result,ensure_ascii=False,indent=2))
     elif a.command=='schedule':schedule(a)
     elif a.command=='prepare':
         from delivery import verify,read

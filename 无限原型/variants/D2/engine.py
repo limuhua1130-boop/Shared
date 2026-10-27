@@ -1,4 +1,4 @@
-"""Author training steps reused verbatim; outer lifecycle adds recovery and audit."""
+"""Frozen objective/update order with detached, checkpoint-bound loss observations."""
 from copy import deepcopy
 from pathlib import Path
 import json
@@ -15,6 +15,7 @@ from common import (sha, write_json, read_json, capture_rng, restore_rng, save_p
 from data import TrialDataset, loaders, RecordingLoader
 from checkpoint import restore_tensors, topology
 from optimizer_checkpoint import restore_optimizer
+from loss_logging import LossLogger, optimizer_groups
 
 def build_model(cfg, device):
     model = HEEGNet(chunk_size=7500, num_electrodes=32, num_classes=9,
@@ -63,7 +64,7 @@ class RestorableEarlyStopping(EarlyStopping):
             restore_tensors(net, load_pt(path, next(net.parameters()).device))
 
 class RetainedTrainer(Trainer):
-    """train_epoch/test are inherited unchanged from fixed author snapshot."""
+    """Preserve objective and author test(); append observations without new forwards."""
     def __init__(self, cfg, device, directory, binding):
         self.es = RestorableEarlyStopping(metric='val_loss', higher_is_better=False, patience=20, verbose=False)
         self.scheduler = MomentumBatchNormScheduler(epochs=90, bs0=50, bs=10, tau0=.85)
@@ -78,6 +79,7 @@ class RetainedTrainer(Trainer):
         self.native_first = None
         self.native_val_first = None
         self.active_stage = 'train'
+        self.loss_log = None
 
     def train_epoch(self, model, train_dataloader):
         from ball_hhsw import swd_loss
@@ -89,12 +91,19 @@ class RetainedTrainer(Trainer):
             y=y.to(self.device_)
             pred,x=model(**features)
             ce=self.loss_fn(pred,y);swd=swd_loss(x,features['domains'],model.manifold)
-            loss=ce+self.swd_weight*swd
+            weighted_swd=self.swd_weight*swd
+            loss=ce+weighted_swd
             if not bool(torch.isfinite(loss)):raise FloatingPointError('Nonfinite training loss')
             loss.backward()
             if any(p.grad is not None and not bool(torch.isfinite(p.grad).all()) for p in model.parameters()):
                 raise FloatingPointError('Nonfinite native ball gradient')
+            observed_groups=optimizer_groups(self.optimizer) if self.loss_log is not None else None
             self.optimizer.step();self.optimizer.zero_grad();self.current_step+=1
+            if self.loss_log is not None:
+                self.loss_log.record_step(epoch=self.current_epoch,step=self.current_step,
+                    ce=ce,hhsw=swd,weight=self.swd_weight,weighted=weighted_swd,total=loss,
+                    sample_ids=train_dataloader.batch_ids,domains=features['domains'],
+                    groups=observed_groups,sample_count=int(y.shape[0]))
             if self.current_step<=3 or self.current_step%25==0:
                 write_json(self.directory/'progress.json',dict(epoch=self.current_epoch,step=self.current_step,
                     loss=float(loss.detach()),ce=float(ce.detach()),hhsw=float(swd.detach()),
@@ -108,7 +117,8 @@ class RetainedTrainer(Trainer):
                                         best_epoch=self.es.best_epoch), stop_fit=self.stop_fit_,
                     scheduler=dict(eta=self.scheduler.eta_, eta_test=self.scheduler.eta_test_),
                     binding=self.binding, config=self.cfg, head_initialization=model.head_initialization, resume_allowed=resume_allowed,
-                    granularity='completed epoch boundary' if resume_allowed else 'diagnostic only')
+                    granularity='completed epoch boundary' if resume_allowed else 'diagnostic only',
+                    loss_logging_cursor=deepcopy(self.loss_log.cursor) if self.loss_log is not None else None)
 
     def fit_retained(self, model, train_loader, val_loader, resume=None):
         self.optimizer = model.configure_optimizers(lr=self.lr, weight_decay=self.weight_decay)
@@ -133,6 +143,9 @@ class RetainedTrainer(Trainer):
             start = state['next_epoch']
         else:
             save_pt(self.directory / 'initial.pt', self.snapshot(model, 0, False))
+
+        self.loss_log = LossLogger(self.directory,self.binding,next_epoch=start,step=self.current_step,
+            resume_cursor=state.get('loss_logging_cursor') if resume is not None else None)
 
         def observed_forward(module, args, output):
             g=geometry(module,output[1])
@@ -181,10 +194,12 @@ class RetainedTrainer(Trainer):
                 finite_model(model)
                 for cb in self.callbacks:
                     cb.on_train_epoch_end(self, model)
+                self.loss_log.prepare_epoch(trn,val)
                 state = self.snapshot(model, epoch + 1)
                 # Each completed epoch supports native state recovery; no historical-state fabrication.
                 save_pt(self.directory / ('epoch_%03d.pt' % epoch), state)
                 save_pt(self.directory / 'last.pt', state)
+                self.loss_log.commit()
                 if self.es.best_epoch == epoch:
                     save_pt(self.directory / 'selected.pt', state)
                 if self.native_first is not None:

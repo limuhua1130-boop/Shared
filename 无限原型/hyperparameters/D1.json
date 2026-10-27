@@ -271,5 +271,26 @@
       "checkpoint": "full model, optimizer, RNG, BN topology/extra, ES, BN scheduler, epoch-boundary replay"
     }
   },
-  "evidence": "Frozen config + actual RetainedTrainer/build_model/forward/operator calls; static audit, no new numerical run"
+  "evidence": "Frozen config + actual RetainedTrainer/build_model/forward/operator calls; static audit, no new numerical run",
+  "observation_logging": {
+    "schema": "loss-log-v2",
+    "scientific_configuration_unchanged": true,
+    "every_actual_optimizer_step": true,
+    "train_components": [
+      "ce",
+      "hhsw_raw",
+      "hhsw_weighted",
+      "total_loss"
+    ],
+    "hhsw_aggregation": "sum over domains; mean over 1000 projections within each domain",
+    "hhsw_weight": 0.01,
+    "epoch_primary": "optimizer-step equal mean",
+    "ce_secondary": "sample-weighted mean",
+    "eval_hhsw": null,
+    "eval_total_loss": null,
+    "eval_objective_status": "not_computed",
+    "actual_lr": "all groups recorded; empty group parameter_tensors=0; nonempty plotted",
+    "resume": "completed epoch checkpoint cursor; new segment; preserve excluded tails",
+    "automatic_plot": "isolated CPU subprocess after train/REFIT/prediction; no scientific process plotting imports"
+  }
 }

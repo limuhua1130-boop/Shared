@@ -1,15 +1,17 @@
 # D1 / D2 完整源码与原百轮启动入口
 
+**当前工程版本：Share-v2-loss（TASK-20261027-010）。** 新增每个优化步的完整 loss、恢复去重与独立 CPU 曲线。见[完整 loss 日志与绘图说明](LOSS_LOGGING.md)。v1 和既有服务器实验未被热补，旧运行未保存的逐批数据不能还原。
+
 本包只交付原 D1（EXP-20261027-001，Lorentz）和原 D2（EXP-20261027-002，等价 Poincaré）的 **max_epochs=100、lr=0.001** 版本。保留原早停，因此“百轮版”表示最多 100 轮，不保证跑满 100 轮。没有 200 轮、十倍学习率或已取消实验入口。
 
 两者使用 HEEGNet 主干和官方 HBNN BMLR 分类头，D2 是原 Lorentz 运算的等价球坐标实现。它不是后续其他原生球方案，也不是用训练好的 D1 权重转换得到的模型。
 
-**交付状态：** 已做源码完整性、静态语法、依赖闭合、CLI、调度 dry-run 和 SHA/ZIP 检查；本包未执行新 EA、模型数值验收或训练。既有原实验的验证证据与本次交付检查分开记录。数据和训练权重不包含在包中，需要使用者提供 FACED 整 trial 输入并安装依赖。搬走整个 Share 目录即可，不依赖原项目的 tools 或服务器固定目录。
+**交付状态：** v1 静态检查保留在 `provenance/loss-v1/`；v2 另做实际训练方法的 stub 目标/解析梯度对照、日志恢复/聚合/失败检查及合成数据 PNG/PDF 渲染。未运行真实 PyTorch 模型、EA、REFIT 或新训练；stub 对照不代表真实模型数值回归。数据和权重不包含在包中。搬走整个 `无限原型` 目录即可；以下命令在该目录执行，不依赖原项目 tools 或服务器固定目录。
 
 ## 文件入口
 
 ```text
-Share/
+Share/无限原型/
   share.py                       统一跨平台入口；--help 不导入 torch
   scripts/run_D1_100.py           D1 完整百轮流水线（默认十折）
   scripts/run_D2_100.py           D2 完整百轮流水线（默认十折）
@@ -21,6 +23,10 @@ Share/
   data_protocol.json
   stage.py / portable_runtime.py  可移植 IO、运行身份、独立阶段
   delivery.py                    SHA、依赖清单、独立评分结果汇总
+  loss_logging.py / loss_plot.py  完整增量记录、恢复去重、离线图与 CPU 子进程
+  requirements-plot.txt           仅离线绘图依赖，无需 torch
+  LOSS_LOGGING.md                 记录口径、恢复规则、使用命令与限制
+  tests/test_loss_logging.py      无模型的行为测试
   variants/D1/                   原 D1 模型、完整训练/恢复/REFIT/评分/几何导出
   variants/D2/                   原 D2 + ball.py/ball_bn.py/ball_hhsw.py
     author/                      完整 HEEGNet 作者快照，105 文件
@@ -140,7 +146,7 @@ python share.py run --variant D2 --mode export --fold 0 --cache /data/FACED_EA_c
 
 ## 来源与改动边界
 
-HEEGNet 作者 commit `5ad0df23f802db8402b734ff2cd4f2a4ab4c93b9`；HBNN 官方 commit `d5c79c8eed36a0b7c2f15e9a8fbcd0318216e5b0`。两个 `author/` 的 105 文件、完整 HBNN 源文件、D1/D2 数学模型/头/损失/训练引擎及两份原配置逐字节对照。原来源、逐文件 hash、可移植改动 diff 在 `provenance/`。
+HEEGNet 作者 commit `5ad0df23f802db8402b734ff2cd4f2a4ab4c93b9`；HBNN 官方 commit `d5c79c8eed36a0b7c2f15e9a8fbcd0318216e5b0`。两个 `author/` 的 105 文件、完整 HBNN 源文件、D1/D2 数学模型/头/损失及两份原配置逐字节对照。v2 的 `engine.py` 新增观察/游标，不再声称引擎字节未改；目标运算顺序和原选模、BN 调度保持。原引擎文本、v1 检查、版本映射及 diff 在 `provenance/loss-v1/` 和 `provenance/loss_logging_v2.json`。
 
 新增的是本地路径和进程入口、可跨平台锁、缓存真实身份验证、相对预测路径、CPU 汇总与启动脚本；兼容桥复制自已验证实现，只复用不可变 ScriptFunction，参数/缓冲区仍独立深复制；NumPy RNG 比较保持 dtype/shape/value 精确相等。原作者的数学表达式、头初始化、优化器算法、早停/BN公式与数值阈值未改。
 

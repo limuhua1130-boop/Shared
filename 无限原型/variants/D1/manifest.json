@@ -1,5 +1,5 @@
 {
-  "delivery": "Share-v1",
+  "delivery": "Share-v2-loss",
   "variant": "D1",
   "files": {
     "author/demo.ipynb": "be665cfe0c7fa3e0919da286a2838121025f47d944ff8f5acb04bd0012661aed",
@@ -113,7 +113,7 @@
     "common.py": "6110b03ed1682dfaab39080c50037014d89927facabd185b0276e9745407fb01",
     "config.json": "0babd398729c1e2730c19617e25453c5d6054a4155d0008c0fe1891104f19af8",
     "data.py": "46c256ce812c4fd5b72d925e1e0043c18cf5ecf9e9d81c721e1b5b1d5ca0fdbb",
-    "engine.py": "2493678ed9c16a5d233884ab9e6b1b9ff5c32137f2a8c2bd515e7e8a401699b1",
+    "engine.py": "3101d12578a95ef7f073c79f1cbb3c42ee7e89aa8b6f2877d4dd5b2a3467651a",
     "evaluation_check.py": "96d956067bd4df8be76ef5528f5f5667bb27293784587474a5ab8a29ef8e496e",
     "execution_compat.py": "182e248b6d7751b054cbe153e55a975b0912dc10c6660e86da55ce242dea7c0f",
     "hbnn_author/.gitignore": "969e3e1aa5e658e35437a8fba71d94d2e4ad4bbc3c4911a9107cfd3abc0c118b",
@@ -238,9 +238,11 @@
   },
   "shared_files": {
     "data_builder.py": "7bf6b8d6ec26f05f58d7c0189145cea54422b99cf6453a294d382b0213f9bb16",
-    "delivery.py": "77b2c5dc635bcd9df4bba7862a84c9d330ddc45eb1a4e6d34c59bc1f41f03bf1",
-    "portable_runtime.py": "09549d44337a36c10f7822fcba5c5a60b177bc255ecb32cfcacddcce77c931b5",
-    "share.py": "71c66ed429c7fc1c932d4b5bd467b7cd79206a5ce03268baaee83c05a462b278",
-    "stage.py": "51140689417f0a7496d7e7ddd915dfbe7ae1b143c8f26656109aed45e6aeafd4"
+    "delivery.py": "73a17cb22016d9649fbe0d25d13f00e579ba2de96f7b1848dd6b9a23160842f5",
+    "loss_logging.py": "e578a81422098c391019807f08bba7c963d5c8b5cebf13cd67884cb040371c6b",
+    "loss_plot.py": "dd4b80ac42429fb739b4e38817fbae5b8aaab9d5be654d894c9f3cea3a17ff27",
+    "portable_runtime.py": "fce6bf203f57110566ad0915e2817fcfa1f64960531734ca14b009f74ec163e0",
+    "share.py": "1ea17884f5c5bb76a8f34d97575ced3b3416b0e6f8c16c727014b5c87b15548f",
+    "stage.py": "7c3d4c3c2a687a3c892fe0fb04f38d210eeb428b9f3b1be56990a328348fcd6c"
   }
 }

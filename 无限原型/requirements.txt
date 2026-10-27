@@ -7,3 +7,4 @@ scikit-learn==1.7.2
 geoopt==0.5.1
 pandas==2.3.3
 pyyaml==6.0.3
+matplotlib==3.9.2

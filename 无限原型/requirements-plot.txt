@@ -1,0 +1,2 @@
+# Offline plotting only; no torch/model dependency.
+matplotlib==3.9.2

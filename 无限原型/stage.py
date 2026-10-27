@@ -31,6 +31,10 @@ def execute(a):
         elif a.mode=='train':
             from workflow import run_fold
             run_fold(cache,work,a.fold,a.gpu,manifest,a.resume,attempt=a.attempt)
+            # Isolated CPU process, after training/REFIT/prediction. No plotting
+            # library imports or RNG changes in the scientific process.
+            from loss_plot import automatic_plot
+            automatic_plot(work/'runs'/f'fold_{a.fold:02d}')
         elif a.mode=='score':
             from workflow import score_fold
             from binding import require_binding
